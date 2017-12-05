@@ -145,7 +145,11 @@ func (p *Prompt) Run() (string, error) {
 		default:
 			if eraseDefault {
 				eraseDefault = false
-				input = string(line)
+				if string(line) == p.Default {
+					input = ""
+				} else {
+					input = string(line)
+				}
 			}
 		}
 
@@ -253,7 +257,6 @@ func (p *Prompt) prepareTemplates() error {
 			if strings.ToLower(p.Default) == "y" {
 				confirm = "Y/n"
 			}
-			p.Default = ""
 			tpls.Confirm = fmt.Sprintf(`{{ "%s" | bold }} {{ . | bold }}? {{ "[%s]" | faint }} `, IconInitial, confirm)
 		}
 
