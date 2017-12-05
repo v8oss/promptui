@@ -7,7 +7,7 @@ import (
 	"text/template"
 
 	"github.com/chzyer/readline"
-	"github.com/manifoldco/promptui/screenbuf"
+	"github.com/v8oss/promptui/screenbuf"
 )
 
 const cursor = "\u2588"
@@ -32,8 +32,9 @@ type Prompt struct {
 	// default templates are used.
 	Templates *PromptTemplates
 
-	IsConfirm bool
-	IsVimMode bool
+	IsConfirm    bool
+	IsVimMode    bool
+	EraseDefault bool
 
 	stdin  io.Reader
 	stdout io.Writer
@@ -122,7 +123,7 @@ func (p *Prompt) Run() (string, error) {
 
 	var inputErr error
 	input := p.Default
-	eraseDefault := input != ""
+	eraseDefault := input != "" && p.EraseDefault
 
 	c.SetListener(func(line []rune, pos int, key rune) ([]rune, int, bool) {
 		if line != nil {
