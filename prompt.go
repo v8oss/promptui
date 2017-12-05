@@ -247,12 +247,12 @@ func (p *Prompt) prepareTemplates() error {
 	bold := Styler(FGBold)
 
 	if p.IsConfirm {
-		p.Default = ""
 		if tpls.Confirm == "" {
 			confirm := "y/N"
 			if strings.ToLower(p.Default) == "y" {
 				confirm = "Y/n"
 			}
+			p.Default = ""
 			tpls.Confirm = fmt.Sprintf(`{{ "%s" | bold }} {{ . | bold }}? {{ "[%s]" | faint }} `, IconInitial, confirm)
 		}
 
