@@ -36,8 +36,8 @@ type Prompt struct {
 	IsVimMode    bool
 	EraseDefault bool
 
-	stdin  io.Reader
-	stdout io.Writer
+	stdin  io.ReadCloser
+ 	stdout io.WriteCloser
 }
 
 // PromptTemplates allow a prompt to be customized following stdlib
